@@ -3,13 +3,11 @@ import re
 from http.server import BaseHTTPRequestHandler
 from urllib.parse import urlparse
 
-from ToDoManager import ToDoManager
-
 
 # Обработчик HTTP запросов для задач
 class ToDoHandler(BaseHTTPRequestHandler):
-    def __init__(self, *args, **kwargs):
-        self.todo_manager = ToDoManager()
+    def __init__(self, manager, *args, **kwargs):
+        self.todo_manager = manager
         super().__init__(*args, **kwargs)
 
     def _set_response(self, status_code, data=None, content_type=None):
@@ -27,7 +25,7 @@ class ToDoHandler(BaseHTTPRequestHandler):
     def _return_json(self, data, code=200):
         """Возврат ответа типа json"""
         self._set_response(
-            json.dumps(data).encode("utf-8"), code, content_type="application/json"
+            code, json.dumps(data).encode("utf-8"), content_type="application/json"
         )
 
     def _return_errors(self, data, code=400):
@@ -97,7 +95,7 @@ class ToDoHandler(BaseHTTPRequestHandler):
         """Обработка GET запросов"""
         parsed_path = urlparse(self.path)
         if parsed_path.path == "/tasks":
-            self._get_tasks()
+            self._get_items()
             return
 
         match = re.match(r"^/tasks/(\d+)$", parsed_path.path)
@@ -111,7 +109,7 @@ class ToDoHandler(BaseHTTPRequestHandler):
         """Обработка POST запросов"""
         parsed_path = urlparse(self.path)
         if parsed_path.path == "/tasks":
-            self._create_task()
+            self._create_item()
             return
 
         match = re.match(r"^/tasks/(\d+)/complete$", parsed_path.path)
