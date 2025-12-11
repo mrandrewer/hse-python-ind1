@@ -1,0 +1,19 @@
+[project]
+name = "hse-python-ind1"
+version = "0.1.0"
+description = "Итоговое домашнее залдание по предмету Программирование на Python"
+authors = [
+    {name = "Andrei Belskii",email = "mrandrewer@yandex.ru"}
+]
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.group.dev.dependencies]
+flake8 = "^7.3.0"
