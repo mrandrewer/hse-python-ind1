@@ -18,7 +18,7 @@ class ToDoManager:
             try:
                 with open(self.filename, "r", encoding="utf-8") as f:
                     data = json.load(f)
-                    self.tasks = [TodoItem.from_dict(task) for task in data]
+                    self.tasks = [TodoItem.load(task) for task in data]
                     if self.tasks:
                         self.next_id = max(task.id for task in self.tasks) + 1
             except (json.JSONDecodeError, FileNotFoundError):
@@ -27,7 +27,7 @@ class ToDoManager:
 
     def save_tasks(self):
         """Сохранение задач в файл"""
-        tasks_data = [task.to_dict() for task in self.tasks]
+        tasks_data = [task.export() for task in self.tasks]
         with open(self.filename, "w", encoding="utf-8") as f:
             json.dump(tasks_data, f, ensure_ascii=False, indent=2)
 
