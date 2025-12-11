@@ -4,8 +4,8 @@
 
 ## Prerequisites
 
-*   [Python](www.python.org) (>=3.10)
-*   [Poetry](python-poetry.org) for dependency management
+*   [Python](http://www.python.org) (>=3.10)
+*   [Poetry](http://python-poetry.org) for dependency management
 
 ## Setup
 
