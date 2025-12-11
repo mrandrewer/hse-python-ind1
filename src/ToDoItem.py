@@ -2,7 +2,7 @@ VALID_PRIORITIES = ["low", "normal", "high"]
 
 
 # Класс для представления задачи
-class TodoItem:
+class ToDoItem:
     def __init__(self, item_id, title, priority="normal", is_done=False):
         self.validate_title(title)
         self.validate_priority(priority)
