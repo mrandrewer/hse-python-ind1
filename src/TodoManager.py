@@ -33,7 +33,7 @@ class ToDoManager:
 
     def create_item(self, title, priority="normal"):
         """Создание новой задачи"""
-        item = ToDoItem(title, priority, False, self.next_id)
+        item = ToDoItem(self.next_id, title, priority, False)
         self.next_id += 1
         self.items.append(item)
         self.save_items()
