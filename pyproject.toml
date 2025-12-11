@@ -1,7 +1,7 @@
 [project]
 name = "hse-python-ind1"
 version = "0.1.0"
-description = "Итоговое домашнее залдание по предмету Программирование на Python"
+description = "Итоговое домашнее задание по предмету Программирование на Python"
 authors = [
     {name = "Andrei Belskii",email = "mrandrewer@yandex.ru"}
 ]
