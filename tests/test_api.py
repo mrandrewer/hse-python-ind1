@@ -33,3 +33,18 @@ class TestToDoAPI:
         assert response.status_code == 400
         data = response.json()
         assert "errors" in data
+
+    def test_get_task_by_id(self):
+        """Тест получения задачи по ID"""
+        # Сначала создаем задачу
+        task_data = {"title": "Task for get test", "priority": "high"}
+        create_response = post(f"{self.BASE_URL}/tasks", json=task_data)
+        task_id = create_response.json()["id"]
+
+        # Получаем задачу по ID
+        get_response = get(f"{self.BASE_URL}/tasks/{task_id}")
+        assert get_response.status_code == 200
+        data = get_response.json()
+        assert data["id"] == task_id
+        assert data["title"] == "Task for get test"
+        assert data["priority"] == "high"
