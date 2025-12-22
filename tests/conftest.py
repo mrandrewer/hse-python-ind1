@@ -9,7 +9,7 @@ def start_server():
     """Фикстура для запуска и остановки сервера"""
     # Запуск сервера
     server_process = subprocess.Popen(
-        ["python", "__main__.py"],
+        ["python", "src/__main__.py"],
         env=os.environ
         | {"TASKS_SERVER_PORT": "8080", "TASKS_DATA_FILE": "test_tasks.txt"},
         stdout=subprocess.PIPE,
