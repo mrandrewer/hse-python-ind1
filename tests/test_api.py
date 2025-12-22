@@ -53,3 +53,18 @@ class TestToDoAPI:
         """Тест получения несуществующей задачи"""
         response = get(f"{self.BASE_URL}/tasks/999")
         assert response.status_code == 404
+
+    def test_mark_task_complete(self):
+        """Тест отметки задачи как выполненной"""
+        # Создаем задачу
+        task_data = {"title": "Task to complete", "priority": "low"}
+        create_response = post(f"{self.BASE_URL}/tasks", json=task_data)
+        task_id = create_response.json()["id"]
+
+        # Отмечаем как выполненную
+        complete_response = post(f"{self.BASE_URL}/tasks/{task_id}/complete")
+        assert complete_response.status_code == 200
+
+        # Проверяем, что задача выполнена
+        get_response = get(f"{self.BASE_URL}/tasks/{task_id}")
+        assert get_response.json()["isDone"] is True
