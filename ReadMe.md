@@ -22,3 +22,11 @@ Run the server
 ```bash
 make run
 ```
+
+## Test
+
+Run the test suite
+
+```bash
+make test
+```
