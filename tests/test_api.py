@@ -1,4 +1,4 @@
-from requests import get
+from requests import get, post
 
 
 class TestToDoAPI:
@@ -11,3 +11,16 @@ class TestToDoAPI:
         response = get(f"{self.BASE_URL}/tasks")
         assert response.status_code == 200
         assert response.json() == []
+
+    def test_create_task(self):
+        """Тест создания задачи"""
+        task_data = {"title": "Test task", "priority": "normal"}
+        response = post(f"{self.BASE_URL}/tasks", json=task_data)
+        assert response.status_code == 200
+
+        data = response.json()
+        assert data["title"] == "Test task"
+        assert data["priority"] == "normal"
+        assert data["isDone"] is False
+        assert "id" in data
+        assert isinstance(data["id"], int)
