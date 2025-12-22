@@ -73,3 +73,27 @@ class TestToDoAPI:
         """Тест отметки несуществующей задачи как выполненной"""
         response = post(f"{self.BASE_URL}/tasks/999/complete")
         assert response.status_code == 404
+
+    def test_get_tasks_after_creation(self):
+        """Тест получения списка задач после создания нескольких"""
+        # Создаем несколько задач
+        tasks = [
+            {"title": "Task get arr 1", "priority": "low"},
+            {"title": "Task get arr 2", "priority": "normal"},
+            {"title": "Task get arr 3", "priority": "high"},
+        ]
+
+        created_ids = []
+        for task in tasks:
+            response = post(f"{self.BASE_URL}/tasks", json=task)
+            created_ids.append(response.json()["id"])
+
+        # # Получаем все задачи
+        response = get(f"{self.BASE_URL}/tasks")
+        assert response.status_code == 200
+        all_tasks = response.json()
+
+        # # Проверяем, что созданные задачи присутствуют
+        task_ids = [task["id"] for task in all_tasks]
+        for created_id in created_ids:
+            assert created_id in task_ids
