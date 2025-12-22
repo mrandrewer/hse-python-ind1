@@ -24,3 +24,12 @@ class TestToDoAPI:
         assert data["isDone"] is False
         assert "id" in data
         assert isinstance(data["id"], int)
+
+    def test_create_task_invalid(self):
+        """Тест создания задачи с невалидным приоритетом"""
+        task_data = {"title": "Test task", "priority": "invalid"}
+
+        response = post(f"{self.BASE_URL}/tasks", json=task_data)
+        assert response.status_code == 400
+        data = response.json()
+        assert "errors" in data
