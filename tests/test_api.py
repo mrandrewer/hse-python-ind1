@@ -48,3 +48,8 @@ class TestToDoAPI:
         assert data["id"] == task_id
         assert data["title"] == "Task for get test"
         assert data["priority"] == "high"
+
+    def test_get_task_by_id_invalid(self):
+        """Тест получения несуществующей задачи"""
+        response = get(f"{self.BASE_URL}/tasks/999")
+        assert response.status_code == 404
